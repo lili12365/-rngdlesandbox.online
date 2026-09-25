@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="RNGDLE is a daily five-digit number guessing game. Use higher, lower, and distance clues to solve today's random number in six tries." />
+  <meta name="theme-color" content="#101311" />
+  <title>RNGDLE - Daily Number Guessing Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="RNGDLE home"><span class="brand-mark">R</span><span>RNGDLE</span></a>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="#how">How it works</a>
+      <a href="#clues">Clues</a>
+      <a href="#strategy">Strategy</a>
+    </nav>
+    <div class="top-actions">
+      <button class="icon-button" id="helpButton" aria-label="Open game guide" title="Guide">?</button>
+      <button class="icon-button" id="statsButton" aria-label="Open statistics" title="Stats">#</button>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero-row">
+      <div>
+        <p class="eyebrow"><span class="pulse"></span> DAILY CHALLENGE <span class="slash">/</span> #<span id="challengeNumber">042</span></p>
+        <h1>Guess today's<br><em>random number.</em></h1>
+        <p class="intro">Find the hidden five-digit number between 00001 and 99999. You get six attempts, distance clues, and one new puzzle every day.</p>
+      </div>
+      <div class="date-stamp" aria-label="Today's date"><span id="dateDay">23</span><small id="dateMonth">SEP<br>2026</small></div>
+    </section>
+
+    <section class="game-layout" aria-label="Daily RNGDLE game">
+      <div class="board-panel">
+        <div class="panel-heading"><span>Your guesses</span><span class="attempt-count"><b id="attemptCount">0</b> / 6</span></div>
+        <div class="guess-list" id="guessList" aria-live="polite"></div>
+        <form class="guess-form" id="guessForm">
+          <label for="guessInput" class="sr-only">Enter a number from 00001 to 99999</label>
+          <input id="guessInput" name="guess" inputmode="numeric" type="number" min="1" max="99999" placeholder="Enter five digits" autocomplete="off" required />
+          <button class="submit-button" type="submit"><span>Submit guess</span><span class="arrow">-></span></button>
+        </form>
+        <p class="form-message" id="formMessage" role="status">Ready for your first guess.</p>
+      </div>
+
+      <aside class="side-panel">
+        <div class="side-block range-block">
+          <div class="panel-heading"><span>Range</span><span class="mono">00001-99999</span></div>
+          <div class="range-line"><span>00001</span><div class="range-track"><i></i><i></i><i></i><i></i><i></i></div><span>99999</span></div>
+        </div>
+        <div class="side-block">
+          <div class="panel-heading"><span>Clue model</span><span class="hint-icon">*</span></div>
+          <p class="hint-copy">Every guess reveals direction and whether you are within 1,000 of the answer.</p>
+        </div>
+        <div class="side-block streak-block">
+          <div><span class="side-label">Current streak</span><strong id="streakValue">0</strong></div>
+          <div class="streak-dots" id="streakDots"><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="keyboard" aria-label="Number keypad"><div class="key-row" id="keyRow1"></div><div class="key-row" id="keyRow2"></div></section>
+    <section class="bottom-row"><p><span class="live-dot"></span> Next puzzle unlocks in <strong id="countdown">23:59:59</strong></p><p class="keyboard-note">Keyboard supported <span>Enter</span></p></section>
+
+    <section class="content-section intro-grid" id="how">
+      <div class="section-copy">
+        <p class="eyebrow">HOW RNGDLE WORKS</p>
+        <h2>A daily number puzzle with real deduction.</h2>
+        <p>RNGDLE looks simple, but the five-digit range makes every guess matter. Start with a broad anchor, read the direction clue, then compress the search space until the answer is forced.</p>
+      </div>
+      <div class="info-steps" aria-label="Game steps">
+        <article><span>01</span><h3>Pick a starting point</h3><p>Use a central value such as 50000, or choose your own riskier opener.</p></article>
+        <article><span>02</span><h3>Read direction</h3><p>Each guess tells you whether the hidden number is higher or lower.</p></article>
+        <article><span>03</span><h3>Use distance</h3><p>Orange means your guess landed within 1,000 of the target.</p></article>
+        <article><span>04</span><h3>Solve in six</h3><p>Finish before the attempt counter runs out and share your pattern.</p></article>
+      </div>
+    </section>
+
+    <section class="content-section clue-lab" id="clues">
+      <div class="clue-visual" aria-hidden="true">
+        <div class="number-scale">
+          <span>00001</span><span>25000</span><span>50000</span><span>75000</span><span>99999</span>
+        </div>
+        <div class="sample-stack">
+          <div class="sample-row far"><b>21450</b><span>Too low</span></div>
+          <div class="sample-row near"><b>73880</b><span>Close range</span></div>
+          <div class="sample-row correct"><b>74213</b><span>Exact hit</span></div>
+        </div>
+      </div>
+      <div class="section-copy">
+        <p class="eyebrow">CLUE SYSTEM</p>
+        <h2>Three signals, one hidden number.</h2>
+        <p>The game does not reveal digits individually. Instead, it gives compact numeric feedback: direction, proximity, and final confirmation. That keeps the puzzle quick while still rewarding careful interval narrowing.</p>
+        <ul class="dense-list">
+          <li><b>Too low</b> - the target is greater than your guess.</li>
+          <li><b>Too high</b> - the target is smaller than your guess.</li>
+          <li><b>Close</b> - your guess is within 1,000 of the answer.</li>
+          <li><b>Hit</b> - exact match, puzzle complete.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="content-section strategy-grid" id="strategy">
+      <div class="strategy-card primary">
+        <p class="eyebrow">SMART OPENERS</p>
+        <h2>Try a binary-search rhythm.</h2>
+        <p>With six guesses, a balanced strategy is usually better than random poking. Start near the middle, split the remaining interval, then switch to close-range precision once an orange clue appears.</p>
+      </div>
+      <div class="strategy-card"><span class="card-icon">50</span><h3>Guess the middle</h3><p>Open around 50000 to learn which half contains the target.</p></div>
+      <div class="strategy-card"><span class="card-icon">25</span><h3>Halve again</h3><p>Move to the midpoint of the remaining range after every direction clue.</p></div>
+      <div class="strategy-card"><span class="card-icon">1K</span><h3>Exploit close</h3><p>When the clue turns orange, shift from broad search to tight local scanning.</p></div>
+    </section>
+
+    <section class="content-section faq-grid">
+      <div>
+        <p class="eyebrow">QUICK FACTS</p>
+        <h2>Built for daily play.</h2>
+      </div>
+      <div class="faq-list">
+        <details open><summary>What is the number range?</summary><p>Every answer is a five-digit value from 00001 to 99999.</p></details>
+        <details><summary>How often does it reset?</summary><p>The puzzle resets at midnight in your local browser time.</p></details>
+        <details><summary>Is the answer random?</summary><p>The page generates a stable daily answer from the date, so everyone on the same day gets one consistent puzzle in this local version.</p></details>
+      </div>
+    </section>
+
+    <section class="content-section feedback-section" id="feedback">
+      <div>
+        <p class="eyebrow">FEEDBACK / CONTACT</p>
+        <h2>Help make RNGDLE better.</h2>
+      </div>
+      <div class="feedback-copy">
+        <p>Found a bug, have a strategy idea, or want to suggest a new feature? Send a note and include the puzzle date if your message is about a specific daily challenge.</p>
+        <a class="feedback-link" href="mailto:1576337434@qq.com?subject=RNGDLE%20Feedback&body=Hi%2C%0A%0AMy%20feedback%20is%3A%0A%0APuzzle%20date%3A%20">
+          <span>1576337434@qq.com</span>
+          <span class="arrow">-></span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close">X</button>
+      <p class="eyebrow">RNGDLE / GUIDE</p><h2 id="modalTitle">Turn luck into a search strategy.</h2>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
