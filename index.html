@@ -3,13 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="RNGDLE is a daily five-digit number guessing game. Use higher, lower, and distance clues to solve today's random number in six tries." />
+  <meta name="description" content="Guess the Number with RNGDLE, a daily number guessing game with 1-100, 4-digit, and 5-digit challenges. Use higher, lower, and close clues to solve the number." />
   <meta name="theme-color" content="#101311" />
-  <title>RNGDLE - Daily Number Guessing Game</title>
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Guess the Number - Daily Number Guessing Game (1-100, 4 & 5 Digits)" />
+  <meta property="og:description" content="A daily number guessing game. Read higher, lower, and close clues to solve the hidden number." />
+  <meta property="og:url" content="https://rngdle.com/" />
+  <meta property="og:site_name" content="RNGDLE" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="canonical" href="https://rngdle.com/" />
+  <title>Guess the Number - Daily Number Guessing Game (1-100, 4 & 5 Digits)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZME7DCP4MK"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZME7DCP4MK');
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"RNGDLE",
+    "url":"https://rngdle.com/",
+    "description":"A daily number guessing game with higher, lower, and close clues.",
+    "applicationCategory":"GameApplication",
+    "operatingSystem":"Any",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "featureList":["Daily number puzzle","Higher and lower clues","Shareable results"]
+  }
+  </script>
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
@@ -18,8 +46,9 @@
     <a class="brand" href="./" aria-label="RNGDLE home"><span class="brand-mark">R</span><span>RNGDLE</span></a>
     <nav class="nav-links" aria-label="Primary navigation">
       <a href="#how">How it works</a>
-      <a href="#clues">Clues</a>
-      <a href="#strategy">Strategy</a>
+      <a href="./1-100/">1-100</a>
+      <a href="./4-digit/">4-digit</a>
+      <a href="./daily/">Daily game</a>
     </nav>
     <div class="top-actions">
       <button class="icon-button" id="helpButton" aria-label="Open game guide" title="Guide">?</button>
@@ -31,8 +60,8 @@
     <section class="hero-row">
       <div>
         <p class="eyebrow"><span class="pulse"></span> DAILY CHALLENGE <span class="slash">/</span> #<span id="challengeNumber">042</span></p>
-        <h1>Guess today's<br><em>random number.</em></h1>
-        <p class="intro">Find the hidden five-digit number between 00001 and 99999. You get six attempts, distance clues, and one new puzzle every day.</p>
+        <h1>Guess the Number<br><em>Daily Game.</em></h1>
+        <p class="intro">RNGDLE is a daily number guessing game with 1-100, 4-digit, and 5-digit challenges. Start with the range, read each higher or lower clue, and solve the hidden number in six attempts.</p>
       </div>
       <div class="date-stamp" aria-label="Today's date"><span id="dateDay">23</span><small id="dateMonth">SEP<br>2026</small></div>
     </section>
@@ -126,6 +155,21 @@
         <details open><summary>What is the number range?</summary><p>Every answer is a five-digit value from 00001 to 99999.</p></details>
         <details><summary>How often does it reset?</summary><p>The puzzle resets at midnight in your local browser time.</p></details>
         <details><summary>Is the answer random?</summary><p>The page generates a stable daily answer from the date, so everyone on the same day gets one consistent puzzle in this local version.</p></details>
+      </div>
+    </section>
+
+    <section class="content-section long-form-section">
+      <div class="section-copy">
+        <p class="eyebrow">NUMBER GUESSING GAME GUIDE</p>
+        <h2>Make every guess count.</h2>
+        <p>Guessing a number is more interesting when each attempt gives you useful information. RNGDLE turns a familiar higher-or-lower game into a compact daily puzzle. You are not trying to be lucky; you are trying to reduce the possible interval before your six guesses run out.</p>
+        <p>On the daily five-digit board, the answer is between 00001 and 99999. A first guess near the center quickly tells you which half to keep. After that, choose the midpoint of the remaining interval. When a guess is within 1,000, the close clue changes the job from broad search to precision. Keep the last few guesses close together and use the direction of each result to move deliberately.</p>
+        <p>Every daily puzzle is stable for the date, so you can play once, compare your result with friends, and come back when the next number unlocks. The game runs in your browser and stores your local attempts on this device. There is no account, timer pressure during play, or hidden requirement to buy anything.</p>
+      </div>
+      <div class="guide-links">
+        <a href="./1-100/"><b>Guess a Number 1-100</b><span>Learn the classic beginner-friendly range.</span><span class="arrow">-&gt;</span></a>
+        <a href="./4-digit/"><b>4-Digit Number Guessing Game</b><span>Practice a tighter 0001-9999 search.</span><span class="arrow">-&gt;</span></a>
+        <a href="./daily/"><b>Daily Number Guessing Game</b><span>Read the complete daily rules and strategy.</span><span class="arrow">-&gt;</span></a>
       </div>
     </section>
 

@@ -1,0 +1,23 @@
+.seo-page { max-width: 980px; margin: 0 auto; padding: 70px 32px 90px; }
+.seo-hero { max-width: 760px; padding-bottom: 48px; border-bottom: 1px solid var(--line); }
+.seo-hero h1 { font-size: clamp(44px, 7vw, 76px); line-height: .98; }
+.seo-hero h1 em { color: var(--acid); font-style: normal; }
+.seo-hero .lead { margin: 25px 0 0; color: #aeb6ae; font-size: 17px; line-height: 1.75; }
+.seo-layout { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 58px; margin-top: 52px; }
+.seo-content h2 { margin: 0 0 16px; font-size: 31px; line-height: 1.1; }
+.seo-content h3 { margin: 34px 0 9px; font-size: 18px; }
+.seo-content p, .seo-content li { color: #b8c2b9; font-size: 15px; line-height: 1.85; }
+.seo-content ul { padding-left: 22px; }
+.seo-content section { margin-bottom: 48px; }
+.seo-example { margin: 22px 0; padding: 22px; background: var(--panel); border-left: 3px solid var(--acid); }
+.seo-example strong { display: block; margin-bottom: 8px; color: var(--acid); font-family: var(--mono); }
+.seo-aside { align-self: start; position: sticky; top: 25px; border-top: 1px solid var(--line); }
+.seo-aside a { display: block; padding: 15px 0; border-bottom: 1px solid var(--line); color: #aeb6ae; text-decoration: none; font: 12px var(--mono); }
+.seo-aside a:hover { color: var(--acid); }
+.seo-cta { display: block; margin-top: 25px; padding: 18px 20px; background: var(--acid); color: var(--ink) !important; font: 800 14px var(--sans) !important; }
+.seo-faq { border-top: 1px solid var(--line); }
+.seo-faq details { padding: 19px 0; }
+.seo-faq p { margin-bottom: 0; }
+.breadcrumb { margin-bottom: 28px; color: var(--muted); font: 11px var(--mono); }
+.breadcrumb a { color: var(--acid); text-decoration: none; }
+@media (max-width: 760px) { .seo-page { padding: 45px 20px 65px; } .seo-layout { display: block; } .seo-aside { position: static; margin-top: 45px; } .seo-hero .lead { font-size: 15px; } }

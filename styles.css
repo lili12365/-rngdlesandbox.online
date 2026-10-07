@@ -630,6 +630,34 @@ h1 em {
   color: var(--ink);
 }
 
+.long-form-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(280px, .95fr);
+  gap: 56px;
+  padding-bottom: 30px;
+}
+
+.long-form-section .section-copy p:not(.eyebrow) { max-width: 680px; }
+
+.guide-links {
+  border-top: 1px solid var(--line);
+}
+
+.guide-links a {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 7px 18px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--paper);
+  text-decoration: none;
+}
+
+.guide-links a:hover b { color: var(--acid); }
+.guide-links b { font-size: 16px; }
+.guide-links a span:not(.arrow) { color: #aeb6ae; font-size: 13px; }
+.guide-links .arrow { grid-column: 2; grid-row: 1 / span 2; align-self: center; color: var(--acid); }
+
 details {
   border-bottom: 1px solid var(--line);
   padding: 17px 0;
@@ -726,6 +754,10 @@ summary::marker { color: var(--acid); }
   cursor: pointer;
 }
 
+.share-actions { display: grid; gap: 8px; }
+.share-button.secondary { background: transparent; border: 1px solid #536054; color: var(--paper); }
+.share-button.secondary:hover { border-color: var(--acid); color: var(--acid); }
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -749,7 +781,8 @@ summary::marker { color: var(--acid); }
   .intro-grid,
   .clue-lab,
   .faq-grid,
-  .feedback-section { grid-template-columns: 1fr; }
+  .feedback-section,
+  .long-form-section { grid-template-columns: 1fr; }
   .strategy-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .strategy-card.primary { grid-column: 1 / -1; }
 }

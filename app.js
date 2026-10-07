@@ -199,7 +199,7 @@ function submitGuess(event) {
 function openModal(type) {
   const content = $('#modalContent');
   if (type === 'result') {
-    content.innerHTML = `<p>You used ${guesses.length} of ${maxAttempts} attempts.</p><div class="result-number">${formatNumber(solution)}</div><button class="share-button" id="shareButton">Copy result</button>`;
+    content.innerHTML = `<p>You used ${guesses.length} of ${maxAttempts} attempts.</p><div class="result-number">${formatNumber(solution)}</div><div class="share-actions"><button class="share-button" id="shareButton">Copy text result</button><button class="share-button secondary" id="downloadShareButton">Download result card</button></div>`;
   } else if (type === 'stats') {
     const solved = guesses.length && guesses.at(-1) === solution;
     const stats = getHistoryStats();
@@ -211,6 +211,8 @@ function openModal(type) {
   $('#modalBackdrop').hidden = false;
   const share = $('#shareButton');
   if (share) share.addEventListener('click', shareResult);
+  const download = $('#downloadShareButton');
+  if (download) download.addEventListener('click', downloadResultCard);
 }
 
 function shareResult() {
@@ -218,9 +220,39 @@ function shareResult() {
     if (guess === solution) return 'G';
     return Math.abs(guess - solution) <= 1000 ? 'O' : 'X';
   }).join('');
-  const text = `RNGDLE #${$('#challengeNumber').textContent} ${guesses.length}/${maxAttempts}\n${blocks}`;
-  navigator.clipboard?.writeText(text);
+  const text = `RNGDLE #${$('#challengeNumber').textContent} ${guesses.length}/${maxAttempts}\n${blocks}\nPlay: ${window.location.origin}`;
+  if (navigator.clipboard) navigator.clipboard.writeText(text);
   $('#shareButton').textContent = 'Copied';
+}
+
+function downloadResultCard() {
+  const blocks = guesses.map((guess) => guess === solution ? '#d4f367' : Math.abs(guess - solution) <= 1000 ? '#ff9368' : '#8be8bd');
+  const canvas = document.createElement('canvas');
+  canvas.width = 1200;
+  canvas.height = 630;
+  const context = canvas.getContext('2d');
+  context.fillStyle = '#101311';
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.fillStyle = '#d4f367';
+  context.font = '700 30px Arial';
+  context.fillText('RNGDLE', 72, 88);
+  context.fillStyle = '#edf0e9';
+  context.font = '700 64px Arial';
+  context.fillText(`Daily number #${$('#challengeNumber').textContent}`, 72, 175);
+  context.fillStyle = '#879087';
+  context.font = '400 28px Arial';
+  context.fillText(`Solved in ${guesses.length}/${maxAttempts} guesses`, 72, 230);
+  blocks.forEach((color, index) => {
+    context.fillStyle = color;
+    context.fillRect(72 + index * 105, 300, 82, 82);
+  });
+  context.fillStyle = '#aeb6ae';
+  context.font = '400 24px Arial';
+  context.fillText('Guess the Number - rngdle.com', 72, 545);
+  const link = document.createElement('a');
+  link.download = `rngdle-${currentDateKey}.png`;
+  link.href = canvas.toDataURL('image/png');
+  link.click();
 }
 
 function updateCountdown() {
